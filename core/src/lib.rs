@@ -213,6 +213,7 @@ pub fn have_same_currency(dinero_objects: &[Dinero]) -> bool {
 }
 
 #[cfg(test)]
+#[cfg(not(tarpaulin_include))]
 mod tests {
     use std::error::Error;
 
@@ -232,7 +233,17 @@ mod tests {
     #[test]
     fn test_trim_scale() {
         assert_eq!(
+            trim_scale(&Dinero::new(0, USD, Some(2))),
+            Dinero::new(0, USD, Some(2))
+        );
+
+        assert_eq!(
             trim_scale(&Dinero::new(99950, USD, Some(4))),
+            Dinero::new(9995, USD, Some(3))
+        );
+
+        assert_eq!(
+            trim_scale(&Dinero::new(9995, USD, Some(3))),
             Dinero::new(9995, USD, Some(3))
         );
     }
