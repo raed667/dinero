@@ -19,13 +19,13 @@ pub mod transform_scale;
 pub mod trim_scale;
 #[derive(Debug, Clone, Copy, Eq)]
 pub struct Dinero {
-    pub amount: i64, // Make more generic
+    pub amount: isize, // Make more generic
     pub currency: Currency,
-    pub scale: i64,
+    pub scale: isize,
 }
 
 impl Dinero {
-    pub fn new(amount: i64, currency: Currency, scale: Option<i64>) -> Dinero {
+    pub fn new(amount: isize, currency: Currency, scale: Option<isize>) -> Dinero {
         Dinero {
             scale: scale.unwrap_or_else(|| currency.exponent.to_owned()),
             amount,

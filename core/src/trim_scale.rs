@@ -1,6 +1,6 @@
 use crate::{transform_scale::transform_scale, Dinero};
 
-fn count_trailing_zeros(input: i64, base: i64) -> i64 {
+fn count_trailing_zeros(input: isize, base: isize) -> isize {
     if input == 0 {
         return 0;
     }

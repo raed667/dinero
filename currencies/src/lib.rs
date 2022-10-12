@@ -1,8 +1,8 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Currency {
     pub code: CountryCode,
-    pub base: i64,
-    pub exponent: i64,
+    pub base: isize,
+    pub exponent: isize,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

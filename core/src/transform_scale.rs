@@ -1,13 +1,13 @@
 use crate::Dinero;
 
-pub fn transform_scale(item: &Dinero, new_scale: i64) -> Dinero {
+pub fn transform_scale(item: &Dinero, new_scale: isize) -> Dinero {
     let scale = item.scale;
     let amount = item.amount;
     let currency = item.currency;
 
     let is_new_scale_larger = new_scale > scale;
-    let new_amount: i64;
-    let factor: i64;
+    let new_amount: isize;
+    let factor: isize;
 
     if is_new_scale_larger {
         let pow = (new_scale - scale) as u32;

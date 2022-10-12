@@ -1,6 +1,6 @@
 use crate::{messages::INVALID_INPUT, normalize_scale::normalize_scale, Dinero};
 
-pub fn multiply(a: &Dinero, amount: i64, scale: Option<i64>) -> Dinero {
+pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
     let b = Dinero {
         currency: a.currency,
         amount: 1,
