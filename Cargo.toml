@@ -1,0 +1,15 @@
+[package]
+name = "dinero"
+version = "0.0.1"
+edition = "2021"
+
+[workspace]
+members = ["currencies", "core"]
+
+
+[dependencies]
+currencies = { path = "./currencies" }
+core = { path = "./core" }
+
+[dev-dependencies]
+insta = { version = "1.17.1", features = ["backtrace", "redactions"] }

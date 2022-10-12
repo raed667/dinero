@@ -1,0 +1,12 @@
+
+[package]
+name = "core"
+version = "0.0.1"
+edition = "2021"
+
+
+[dependencies]
+currencies = { path = "../currencies" }
+
+[dev-dependencies]
+pretty_assertions = "1"
