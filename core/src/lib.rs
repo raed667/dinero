@@ -27,7 +27,7 @@ impl PartialEq for Dinero {
         let a = self.to_owned();
         let b = other.to_owned();
 
-        have_same_amount(&vec![a, b]) && have_same_currency(&vec![a, b])
+        have_same_amount(&[a, b]) && have_same_currency(&[a, b])
     }
 }
 
