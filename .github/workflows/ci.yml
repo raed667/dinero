@@ -1,6 +1,6 @@
 on: [push]
 
-name: Build
+name: CI
 
 jobs:
   check:
@@ -11,16 +11,39 @@ jobs:
       - name: Install latest nightly
         uses: actions-rs/toolchain@v1
         with:
-            toolchain: nightly
-            override: true
-            components: rustfmt, clippy
-
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
+# Check
       - name: Run cargo check
         uses: actions-rs/cargo@v1
         with:
           command: check
+# Clippy
+      - name: Run clippy check
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
 
+# Test and coverage
+      - name: Run cargo-tarpaulin
+        uses: actions-rs/tarpaulin@v0.1
+        with:
+          version: '0.15.0'
+          args: '--workspace -- --test-threads 1'
 
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage-report
+          path: cobertura.xml
+# Build
       - name: Run cargo build
         uses: actions-rs/cargo@v1
         with:
