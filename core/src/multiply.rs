@@ -1,4 +1,4 @@
-use crate::{messages::INVALID_INPUT, normalize_scale::normalize_scale, Dinero};
+use crate::{normalize_scale::normalize_scale, Dinero};
 
 pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
     let b = Dinero {
@@ -9,12 +9,7 @@ pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
 
     let normalized = normalize_scale(vec![a.to_owned(), b.to_owned()]);
 
-    let an_opt = normalized.get(0);
-
-    let an = match an_opt {
-        Some(an) => an,
-        None => panic!("{}", INVALID_INPUT),
-    };
+    let an = normalized.get(0).unwrap().to_owned();
 
     Dinero {
         currency: an.currency,

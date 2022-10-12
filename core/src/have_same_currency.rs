@@ -1,7 +1,11 @@
-use crate::{messages::INVALID_INPUT, Dinero};
+use crate::Dinero;
 
 pub fn have_same_currency(dinero_objects: &[Dinero]) -> bool {
-    let first_dinero = dinero_objects.get(0).expect(INVALID_INPUT);
+    if dinero_objects.len() == 0 {
+        return true;
+    }
+
+    let first_dinero = dinero_objects.get(0).unwrap().to_owned();
 
     return dinero_objects
         .iter()
@@ -49,8 +53,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
     fn test_have_same_currency_empty() {
-        have_same_currency(&vec![]);
+        assert!(have_same_currency(&vec![]));
     }
 }

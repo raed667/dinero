@@ -1,8 +1,4 @@
-use crate::{
-    messages::{INVALID_INPUT, UNEQUAL_CURRENCIES_MESSAGE},
-    normalize_scale::normalize_scale,
-    Dinero,
-};
+use crate::{messages::UNEQUAL_CURRENCIES_MESSAGE, normalize_scale::normalize_scale, Dinero};
 use std::error::Error;
 
 pub fn subtract(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
@@ -12,18 +8,8 @@ pub fn subtract(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
 
     let normalized = normalize_scale(vec![a.to_owned(), b.to_owned()]);
 
-    let an_opt = normalized.get(0);
-    let bn_opt = normalized.get(1);
-
-    let an = match an_opt {
-        Some(an) => an,
-        None => panic!("{}", INVALID_INPUT),
-    };
-
-    let bn = match bn_opt {
-        Some(bn) => bn,
-        None => panic!("{}", INVALID_INPUT),
-    };
+    let an = normalized.get(0).unwrap().to_owned();
+    let bn = normalized.get(1).unwrap().to_owned();
 
     Ok(Dinero {
         currency: an.currency,

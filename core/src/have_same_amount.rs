@@ -1,9 +1,12 @@
-use crate::{messages::INVALID_INPUT, normalize_scale::normalize_scale, Dinero};
+use crate::{normalize_scale::normalize_scale, Dinero};
 
 pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
+    if dinero_objects.len() == 0 {
+        return true;
+    }
     let normalized = normalize_scale(dinero_objects.to_owned());
 
-    let first_dinero = normalized.get(0).expect(INVALID_INPUT);
+    let first_dinero = normalized.get(0).unwrap().to_owned();
 
     return normalized
         .iter()
@@ -79,8 +82,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic]
     fn test_have_same_amount_empty() {
-        have_same_amount(&vec![]);
+        assert!(have_same_amount(&vec![]));
     }
 }

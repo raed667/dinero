@@ -173,6 +173,7 @@ pub enum CountryCode {
     PGK,
     SRD,
     UYI,
+    Custom,
 }
 
 /**

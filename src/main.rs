@@ -1,16 +1,18 @@
-use core::subtract::subtract;
-
 // The project probably won't have a binary, this is just for quick testing
 
 #[cfg(not(tarpaulin_include))]
 fn main() {
     use core::Dinero;
 
-    use currencies::USD;
+    use currencies::{CountryCode, Currency};
 
-    let d1 = Dinero::new(420, USD, Some(2));
-    let d2 = Dinero::new(300, USD, Some(3));
-    let d3 = subtract(&d1, &d2).unwrap();
+    let eth = Currency {
+        code: CountryCode::Custom,
+        base: 10,
+        exponent: 18,
+    };
 
-    print!("{:?}", d3);
+    let d1 = Dinero::new(10000000000000, eth, None);
+
+    print!("{:?}", d1);
 }
