@@ -5,7 +5,7 @@ use messages::{INVALID_INPUT, UNEQUAL_CURRENCIES_MESSAGE};
 
 mod messages;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Dinero {
     pub amount: i64, // Make more generic
     pub currency: Currency,
@@ -15,7 +15,7 @@ pub struct Dinero {
 impl Dinero {
     pub fn new(amount: i64, currency: Currency, scale: Option<i64>) -> Dinero {
         Dinero {
-            scale: scale.unwrap_or(currency.exponent.to_owned()),
+            scale: scale.unwrap_or_else(|| currency.exponent.to_owned()),
             amount,
             currency,
         }
@@ -31,11 +31,11 @@ fn count_trailing_zeros(input: i64, base: i64) -> i64 {
     let mut temp = input;
 
     while temp % base == 0 {
-        temp = temp / base;
+        temp /= base;
         i += 1;
     }
 
-    return i;
+    i
 }
 
 pub fn allocate(item: &Dinero, ratios: Vec<i64>) -> Vec<Dinero> {
@@ -59,7 +59,7 @@ pub fn trim_scale(item: &Dinero) -> Dinero {
         return item.to_owned();
     }
 
-    return transform_scale(item, new_scale);
+    transform_scale(item, new_scale)
 }
 
 pub fn transform_scale(item: &Dinero, new_scale: i64) -> Dinero {
@@ -81,11 +81,11 @@ pub fn transform_scale(item: &Dinero, new_scale: i64) -> Dinero {
         new_amount = amount / factor;
     }
 
-    return Dinero {
+    Dinero {
         amount: new_amount,
         currency,
         scale: new_scale,
-    };
+    }
 }
 
 pub fn normalize_scale(dinero_objects: Vec<Dinero>) -> Vec<Dinero> {
@@ -102,7 +102,7 @@ pub fn normalize_scale(dinero_objects: Vec<Dinero>) -> Vec<Dinero> {
             if scale == highest_scale {
                 return *d;
             }
-            return transform_scale(d, highest_scale);
+            transform_scale(d, highest_scale)
         })
         .collect();
 }
@@ -196,7 +196,7 @@ pub fn is_positive(d: &Dinero) -> bool {
     d.amount >= 0
 }
 
-pub fn have_same_amount(dinero_objects: &Vec<Dinero>) -> bool {
+pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
     let first_dinero = dinero_objects.get(0).expect(INVALID_INPUT);
 
     return dinero_objects
@@ -204,7 +204,7 @@ pub fn have_same_amount(dinero_objects: &Vec<Dinero>) -> bool {
         .all(|item| item.amount == first_dinero.amount);
 }
 
-pub fn have_same_currency(dinero_objects: &Vec<Dinero>) -> bool {
+pub fn have_same_currency(dinero_objects: &[Dinero]) -> bool {
     let first_dinero = dinero_objects.get(0).expect(INVALID_INPUT);
 
     return dinero_objects

@@ -1,11 +1,11 @@
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Currency {
     pub code: CountryCode,
     pub base: i64,
     pub exponent: i64,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CountryCode {
     AED,
     BOV,
