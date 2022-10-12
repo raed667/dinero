@@ -5,7 +5,7 @@ use messages::{INVALID_INPUT, UNEQUAL_CURRENCIES_MESSAGE};
 
 mod messages;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Eq)]
 pub struct Dinero {
     pub amount: i64, // Make more generic
     pub currency: Currency,
@@ -19,6 +19,15 @@ impl Dinero {
             amount,
             currency,
         }
+    }
+}
+
+impl PartialEq for Dinero {
+    fn eq(&self, other: &Dinero) -> bool {
+        let a = self.to_owned();
+        let b = other.to_owned();
+
+        have_same_amount(&vec![a, b]) && have_same_currency(&vec![a, b])
     }
 }
 
@@ -36,6 +45,10 @@ fn count_trailing_zeros(input: i64, base: i64) -> i64 {
     }
 
     i
+}
+
+pub fn equal(a: &Dinero, b: &Dinero) -> bool {
+    a == b
 }
 
 pub fn allocate(item: &Dinero, ratios: Vec<i64>) -> Vec<Dinero> {
@@ -197,9 +210,11 @@ pub fn is_positive(d: &Dinero) -> bool {
 }
 
 pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
-    let first_dinero = dinero_objects.get(0).expect(INVALID_INPUT);
+    let normalized = normalize_scale(dinero_objects.to_owned());
 
-    return dinero_objects
+    let first_dinero = normalized.get(0).expect(INVALID_INPUT);
+
+    return normalized
         .iter()
         .all(|item| item.amount == first_dinero.amount);
 }
@@ -220,6 +235,44 @@ mod tests {
     use super::*;
     use currencies::{EUR, TND, USD};
     use pretty_assertions::assert_eq;
+
+    #[test]
+    fn test_equal() {
+        assert!(equal(
+            &Dinero::new(12, EUR, None),
+            &Dinero::new(12, EUR, None)
+        ));
+
+        assert!(equal(
+            &Dinero::new(0, EUR, None),
+            &Dinero::new(0, EUR, None)
+        ));
+
+        assert!(equal(
+            &Dinero::new(-10, EUR, None),
+            &Dinero::new(-10, EUR, None)
+        ));
+
+        assert!(!equal(
+            &Dinero::new(12, EUR, None),
+            &Dinero::new(10, EUR, None)
+        ));
+
+        assert!(!equal(
+            &Dinero::new(12, EUR, None),
+            &Dinero::new(-12, EUR, None)
+        ));
+
+        assert!(!equal(
+            &Dinero::new(12, EUR, None),
+            &Dinero::new(12, USD, None)
+        ));
+
+        assert!(equal(
+            &Dinero::new(500, USD, Some(2)),
+            &Dinero::new(5000, USD, Some(3))
+        ));
+    }
 
     #[test]
     #[ignore]
@@ -379,6 +432,14 @@ mod tests {
                 Dinero::new(10, TND, None)
             ]),
             false
+        );
+
+        assert_eq!(
+            have_same_amount(&vec![
+                Dinero::new(10, USD, None),
+                Dinero::new(100, USD, Some(3)),
+            ]),
+            true
         );
     }
 
