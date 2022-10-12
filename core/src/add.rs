@@ -42,7 +42,7 @@ mod tests {
     use pretty_assertions::assert_eq;
 
     #[test]
-    fn test_add() -> Result<(), Box<dyn Error>> {
+    fn test_add_positive() -> Result<(), Box<dyn Error>> {
         assert_eq!(
             add(&Dinero::new(1, EUR, None), &Dinero::new(2, EUR, None))?,
             Dinero::new(3, EUR, None)
@@ -78,7 +78,7 @@ mod tests {
     }
 
     #[test]
-    fn test_add_currency_check() {
+    fn test_add_unequal_currency() {
         let result = add(&Dinero::new(1, EUR, None), &Dinero::new(2, USD, None));
 
         assert!(result.is_err());

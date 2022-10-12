@@ -13,13 +13,27 @@ mod tests {
     use pretty_assertions::assert_eq;
 
     #[test]
-    fn test_is_positive() {
+    fn test_is_positive_zero() {
         assert_eq!(is_positive(&Dinero::new(0, USD, None)), true);
+    }
+    #[test]
+    fn test_is_positive_negative_zero() {
         assert_eq!(is_positive(&Dinero::new(-0, USD, None)), true);
+    }
+    #[test]
+    fn test_is_positive() {
         assert_eq!(is_positive(&Dinero::new(1, EUR, None)), true);
+    }
+    #[test]
+    fn test_is_positive_value() {
         assert_eq!(is_positive(&Dinero::new(10, EUR, None)), true);
-
+    }
+    #[test]
+    fn test_is_positive_false() {
         assert_eq!(is_positive(&Dinero::new(-1, EUR, None)), false);
+    }
+    #[test]
+    fn test_is_positive_value_false() {
         assert_eq!(is_positive(&Dinero::new(-10, EUR, None)), false);
     }
 }

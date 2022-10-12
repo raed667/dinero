@@ -15,73 +15,67 @@ pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
 mod tests {
     use super::*;
     use currencies::{EUR, TND, USD};
-    use pretty_assertions::assert_eq;
 
     #[test]
-    fn test_have_same_amount() {
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(5, EUR, Some(2)),
-                Dinero::new(5, USD, Some(2)),
-                Dinero::new(5, TND, Some(2))
-            ]),
-            true
-        );
+    fn test_have_same_amount_and_currency() {
+        assert!(have_same_amount(&vec![
+            Dinero::new(5, EUR, Some(2)),
+            Dinero::new(5, USD, Some(2)),
+            Dinero::new(5, TND, Some(2))
+        ]));
+    }
 
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(0, EUR, None),
-                Dinero::new(0, USD, None),
-                Dinero::new(0, TND, None)
-            ]),
-            true
-        );
+    #[test]
+    fn test_have_same_amount_different_currency() {
+        assert!(have_same_amount(&vec![
+            Dinero::new(0, EUR, None),
+            Dinero::new(0, USD, None),
+            Dinero::new(0, TND, None)
+        ]));
+    }
 
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(-10, EUR, Some(2)),
-                Dinero::new(-10, USD, Some(2)),
-                Dinero::new(-10, TND, Some(2))
-            ]),
-            true
-        );
+    #[test]
+    fn test_have_same_amount_negative() {
+        assert!(have_same_amount(&vec![
+            Dinero::new(-10, EUR, Some(2)),
+            Dinero::new(-10, USD, Some(2)),
+            Dinero::new(-10, TND, Some(2))
+        ]));
+    }
+    #[test]
+    fn test_have_same_amount_diff_end() {
+        assert!(!have_same_amount(&vec![
+            Dinero::new(10, EUR, Some(2)),
+            Dinero::new(10, USD, Some(2)),
+            Dinero::new(1, TND, Some(2))
+        ]));
+    }
+    #[test]
+    fn test_have_same_amount_diff_start() {
+        assert!(!have_same_amount(&vec![
+            Dinero::new(1, EUR, Some(2)),
+            Dinero::new(10, USD, Some(2)),
+            Dinero::new(10, TND, Some(2))
+        ]));
+    }
 
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(10, EUR, Some(2)),
-                Dinero::new(10, USD, Some(2)),
-                Dinero::new(1, TND, Some(2))
-            ]),
-            false
-        );
+    #[test]
+    fn test_have_same_amount_diff_mixed() {
+        assert!(!have_same_amount(&vec![
+            Dinero::new(1, EUR, Some(2)),
+            Dinero::new(10, USD, Some(2)),
+            Dinero::new(20, USD, Some(2)),
+            Dinero::new(30, USD, Some(2)),
+            Dinero::new(10, TND, Some(2))
+        ]));
+    }
 
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(1, EUR, Some(2)),
-                Dinero::new(10, USD, Some(2)),
-                Dinero::new(10, TND, Some(2))
-            ]),
-            false
-        );
-
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(1, EUR, Some(2)),
-                Dinero::new(10, USD, Some(2)),
-                Dinero::new(20, USD, Some(2)),
-                Dinero::new(30, USD, Some(2)),
-                Dinero::new(10, TND, Some(2))
-            ]),
-            false
-        );
-
-        assert_eq!(
-            have_same_amount(&vec![
-                Dinero::new(10, USD, Some(2)),
-                Dinero::new(100, USD, Some(3)),
-            ]),
-            true
-        );
+    #[test]
+    fn test_have_same_amounts_base() {
+        assert!(have_same_amount(&vec![
+            Dinero::new(10, USD, Some(2)),
+            Dinero::new(100, USD, Some(3)),
+        ]));
     }
 
     #[test]

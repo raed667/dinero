@@ -15,10 +15,18 @@ mod tests {
     #[test]
     fn test_is_zero() {
         assert_eq!(is_zero(&Dinero::new(0, USD, None)), true);
-        assert_eq!(is_zero(&Dinero::new(-0, USD, None)), true);
         assert_eq!(is_zero(&Dinero::new(0, EUR, None)), true);
-
+    }
+    #[test]
+    fn test_is_zero_negative() {
+        assert_eq!(is_zero(&Dinero::new(-0, USD, None)), true);
+    }
+    #[test]
+    fn test_is_zero_false_positive() {
         assert_eq!(is_zero(&Dinero::new(1, EUR, None)), false);
+    }
+    #[test]
+    fn test_is_zero_false_negative() {
         assert_eq!(is_zero(&Dinero::new(-1, EUR, None)), false);
     }
 }
