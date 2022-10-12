@@ -380,9 +380,9 @@ mod tests {
     fn test_have_same_amount() {
         assert_eq!(
             have_same_amount(&vec![
-                Dinero::new(5, EUR, None),
-                Dinero::new(5, USD, None),
-                Dinero::new(5, TND, None)
+                Dinero::new(5, EUR, Some(2)),
+                Dinero::new(5, USD, Some(2)),
+                Dinero::new(5, TND, Some(2))
             ]),
             true
         );
@@ -398,45 +398,45 @@ mod tests {
 
         assert_eq!(
             have_same_amount(&vec![
-                Dinero::new(-10, EUR, None),
-                Dinero::new(-10, USD, None),
-                Dinero::new(-10, TND, None)
+                Dinero::new(-10, EUR, Some(2)),
+                Dinero::new(-10, USD, Some(2)),
+                Dinero::new(-10, TND, Some(2))
             ]),
             true
         );
 
         assert_eq!(
             have_same_amount(&vec![
-                Dinero::new(10, EUR, None),
-                Dinero::new(10, USD, None),
-                Dinero::new(1, TND, None)
+                Dinero::new(10, EUR, Some(2)),
+                Dinero::new(10, USD, Some(2)),
+                Dinero::new(1, TND, Some(2))
             ]),
             false
         );
 
         assert_eq!(
             have_same_amount(&vec![
-                Dinero::new(1, EUR, None),
-                Dinero::new(10, USD, None),
-                Dinero::new(10, TND, None)
+                Dinero::new(1, EUR, Some(2)),
+                Dinero::new(10, USD, Some(2)),
+                Dinero::new(10, TND, Some(2))
             ]),
             false
         );
 
         assert_eq!(
             have_same_amount(&vec![
-                Dinero::new(1, EUR, None),
-                Dinero::new(10, USD, None),
-                Dinero::new(20, USD, None),
-                Dinero::new(30, USD, None),
-                Dinero::new(10, TND, None)
+                Dinero::new(1, EUR, Some(2)),
+                Dinero::new(10, USD, Some(2)),
+                Dinero::new(20, USD, Some(2)),
+                Dinero::new(30, USD, Some(2)),
+                Dinero::new(10, TND, Some(2))
             ]),
             false
         );
 
         assert_eq!(
             have_same_amount(&vec![
-                Dinero::new(10, USD, None),
+                Dinero::new(10, USD, Some(2)),
                 Dinero::new(100, USD, Some(3)),
             ]),
             true
