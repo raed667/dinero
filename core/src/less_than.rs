@@ -8,7 +8,7 @@ pub fn less_than(a: &Dinero, b: &Dinero) -> bool {
 #[cfg(not(tarpaulin_include))]
 mod tests {
     use super::*;
-    use currencies::EUR;
+    use crate::currencies::EUR;
 
     #[test]
     fn test_less_than() {

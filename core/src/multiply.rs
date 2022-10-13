@@ -21,7 +21,7 @@ pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
 mod tests {
 
     use super::*;
-    use currencies::EUR;
+    use crate::currencies::EUR;
     use pretty_assertions::assert_eq;
 
     #[test]

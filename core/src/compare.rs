@@ -9,8 +9,9 @@ pub fn compare(a: &Dinero, b: &Dinero) -> Ordering {
 #[cfg(test)]
 #[cfg(not(tarpaulin_include))]
 mod tests {
+    use crate::currencies::EUR;
+
     use super::*;
-    use currencies::EUR;
     use pretty_assertions::assert_eq;
 
     #[test]

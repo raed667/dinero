@@ -9,7 +9,7 @@ pub fn is_negative(d: &Dinero) -> bool {
 mod tests {
 
     use super::*;
-    use currencies::{EUR, USD};
+    use crate::currencies::{EUR, USD};
     use pretty_assertions::assert_eq;
 
     #[test]

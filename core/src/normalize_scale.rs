@@ -24,7 +24,7 @@ pub fn normalize_scale(dinero_objects: Vec<Dinero>) -> Vec<Dinero> {
 mod tests {
 
     use super::*;
-    use currencies::{EUR, USD};
+    use crate::currencies::{EUR, USD};
     use pretty_assertions::assert_eq;
 
     #[test]

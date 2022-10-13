@@ -17,7 +17,7 @@ pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
 #[cfg(not(tarpaulin_include))]
 mod tests {
     use super::*;
-    use currencies::{EUR, TND, USD};
+    use crate::currencies::{EUR, TND, USD};
 
     #[test]
     fn test_have_same_amount_and_currency() {

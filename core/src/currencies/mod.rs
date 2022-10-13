@@ -173,7 +173,7 @@ pub enum CountryCode {
     PGK,
     SRD,
     UYI,
-    Custom(u32),
+    Custom,
 }
 
 /**
@@ -1669,3 +1669,14 @@ pub const ZWL: Currency = Currency {
     base: 10,
     exponent: 2,
 };
+
+/**
+ * Custom user-defined currency factory
+ */
+pub fn custom(base: isize, exponent: isize) -> Currency {
+    Currency {
+        code: CountryCode::Custom,
+        base,
+        exponent,
+    }
+}

@@ -37,7 +37,7 @@ pub fn trim_scale(item: &Dinero) -> Dinero {
 mod tests {
 
     use super::*;
-    use currencies::USD;
+    use crate::currencies::USD;
     use pretty_assertions::assert_eq;
 
     #[test]

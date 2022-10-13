@@ -2,15 +2,9 @@
 
 #[cfg(not(tarpaulin_include))]
 fn main() {
-    use core::Dinero;
+    use core::{currencies::custom, Dinero};
 
-    use currencies::{CountryCode, Currency};
-
-    let eth = Currency {
-        code: CountryCode::Custom(11),
-        base: 10,
-        exponent: 18,
-    };
+    let eth = custom(10, 18);
 
     let d1 = Dinero::new(10000000000000, eth, None);
 

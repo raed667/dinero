@@ -23,7 +23,7 @@ mod tests {
     use std::error::Error;
 
     use super::*;
-    use currencies::{EUR, USD};
+    use crate::currencies::{EUR, USD};
     use pretty_assertions::assert_eq;
 
     #[test]

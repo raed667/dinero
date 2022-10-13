@@ -8,7 +8,7 @@ pub fn equal(a: &Dinero, b: &Dinero) -> bool {
 #[cfg(not(tarpaulin_include))]
 mod tests {
     use super::*;
-    use currencies::{EUR, USD};
+    use crate::currencies::{EUR, USD};
 
     #[test]
     fn test_equal_same_value_currency() {

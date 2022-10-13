@@ -29,7 +29,7 @@ pub fn minimum(dinero_objects: Vec<Dinero>) -> Result<Dinero, Box<dyn Error>> {
 #[cfg(not(tarpaulin_include))]
 mod tests {
     use super::*;
-    use currencies::{EUR, USD};
+    use crate::currencies::{EUR, USD};
     use std::error::Error;
 
     #[test]

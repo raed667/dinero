@@ -17,7 +17,7 @@ pub fn normalize_scale_tuple(a: Dinero, b: Dinero) -> (Dinero, Dinero) {
 mod tests {
 
     use super::*;
-    use currencies::{EUR, USD};
+    use crate::currencies::{EUR, USD};
     use pretty_assertions::assert_eq;
 
     #[test]

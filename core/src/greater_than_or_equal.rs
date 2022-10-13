@@ -8,7 +8,7 @@ pub fn greater_than_or_equal(a: &Dinero, b: &Dinero) -> bool {
 #[cfg(not(tarpaulin_include))]
 mod tests {
     use super::*;
-    use currencies::EUR;
+    use crate::currencies::EUR;
 
     #[test]
     fn greater_than_or_equal_true() {

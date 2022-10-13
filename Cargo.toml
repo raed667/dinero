@@ -4,11 +4,10 @@ version = "0.0.1"
 edition = "2021"
 
 [workspace]
-members = ["currencies", "core"]
+members = ["core"]
 
 
 [dependencies]
-currencies = { path = "./currencies" }
 core = { path = "./core" }
 
 [dev-dependencies]

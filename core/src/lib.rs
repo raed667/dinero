@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 
-use currencies::Currency;
+use crate::currencies::Currency;
 use normalize_scale::normalize_scale;
 use normalize_scale_tuple::normalize_scale_tuple;
 
@@ -10,7 +10,9 @@ use crate::have_same_currency::have_same_currency;
 pub mod add;
 pub mod allocate;
 pub mod compare;
+pub mod currencies;
 pub mod equal;
+pub mod format;
 pub mod greater_than;
 pub mod greater_than_or_equal;
 pub mod has_sub_units;

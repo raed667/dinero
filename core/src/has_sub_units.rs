@@ -9,7 +9,7 @@ pub fn has_sub_units(d: &Dinero) -> bool {
 mod tests {
 
     use super::*;
-    use currencies::USD;
+    use crate::currencies::USD;
 
     #[test]
     fn test_has_sub_units() {
