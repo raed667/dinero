@@ -1,7 +1,7 @@
 use crate::{normalize_scale::normalize_scale, Dinero};
 
 pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
-    if dinero_objects.len() == 0 {
+    if dinero_objects.is_empty() {
         return true;
     }
     let normalized = normalize_scale(dinero_objects.to_owned());

@@ -7,7 +7,7 @@ fn main() {
     use currencies::{CountryCode, Currency};
 
     let eth = Currency {
-        code: CountryCode::Custom,
+        code: CountryCode::Custom(11),
         base: 10,
         exponent: 18,
     };

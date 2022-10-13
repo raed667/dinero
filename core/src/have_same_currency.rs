@@ -1,7 +1,7 @@
 use crate::Dinero;
 
 pub fn have_same_currency(dinero_objects: &[Dinero]) -> bool {
-    if dinero_objects.len() == 0 {
+    if dinero_objects.is_empty() {
         return true;
     }
 
