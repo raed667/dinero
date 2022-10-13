@@ -1,4 +1,6 @@
-use crate::{messages::UNEQUAL_CURRENCIES_MESSAGE, normalize_scale::normalize_scale, Dinero};
+use crate::{
+    messages::UNEQUAL_CURRENCIES_MESSAGE, normalize_scale_tuple::normalize_scale_tuple, Dinero,
+};
 use std::error::Error;
 
 pub fn add(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
@@ -6,10 +8,7 @@ pub fn add(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
         Err(UNEQUAL_CURRENCIES_MESSAGE.to_owned())?
     }
 
-    let normalized = normalize_scale(vec![a.to_owned(), b.to_owned()]);
-
-    let an = normalized.get(0).unwrap().to_owned();
-    let bn = normalized.get(1).unwrap().to_owned();
+    let (an, bn) = normalize_scale_tuple(*a, *b);
 
     Ok(Dinero {
         currency: an.currency,

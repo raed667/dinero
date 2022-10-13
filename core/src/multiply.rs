@@ -1,4 +1,4 @@
-use crate::{normalize_scale::normalize_scale, Dinero};
+use crate::{normalize_scale_tuple::normalize_scale_tuple, Dinero};
 
 pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
     let b = Dinero {
@@ -7,9 +7,7 @@ pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
         scale: scale.unwrap_or(a.scale),
     };
 
-    let normalized = normalize_scale(vec![a.to_owned(), b.to_owned()]);
-
-    let an = normalized.get(0).unwrap().to_owned();
+    let (an, _) = normalize_scale_tuple(*a, b);
 
     Dinero {
         currency: an.currency,

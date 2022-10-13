@@ -2,6 +2,7 @@ use std::cmp::Ordering;
 
 use currencies::Currency;
 use normalize_scale::normalize_scale;
+use normalize_scale_tuple::normalize_scale_tuple;
 
 use crate::have_same_amount::have_same_amount;
 use crate::have_same_currency::have_same_currency;
@@ -25,6 +26,7 @@ pub mod messages;
 pub mod minimum;
 pub mod multiply;
 pub mod normalize_scale;
+pub mod normalize_scale_tuple;
 pub mod subtract;
 pub mod transform_scale;
 pub mod trim_scale;
@@ -64,10 +66,7 @@ impl Ord for Dinero {
         let a = self.to_owned();
         let b = other.to_owned();
 
-        let normalized = normalize_scale(vec![a, b]);
-
-        let an = normalized.get(0).unwrap().to_owned();
-        let bn = normalized.get(1).unwrap().to_owned();
+        let (an, bn) = normalize_scale_tuple(a, b);
 
         an.amount.cmp(&bn.amount)
     }
