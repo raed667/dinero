@@ -115,6 +115,13 @@ mod tests {
     }
 
     #[test]
+    fn test_to_unit_zero() {
+        assert_eq!(
+            to_unit(Dinero::new(0, USD, None), None, None), //
+            0.0
+        );
+    }
+    #[test]
     fn test_to_unit_scale() {
         assert_eq!(
             to_unit(Dinero::new(10545, USD, Some(3)), None, None), //
@@ -171,6 +178,18 @@ mod tests {
     }
 
     #[test]
+    fn test_to_unit_round_half_down_round() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1056, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfDown)
+            ), //
+            10.6
+        );
+    }
+
+    #[test]
     fn test_to_unit_round_half_up() {
         assert_eq!(
             to_unit(
@@ -207,10 +226,43 @@ mod tests {
     }
 
     #[test]
+    fn test_to_unit_round_half_odd_2() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1056, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfOdd)
+            ), //
+            10.6
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_odd_3() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1000, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfOdd)
+            ), //
+            10.0
+        );
+    }
+
+    #[test]
     fn test_to_unit_round_half_towards_zero() {
         assert_eq!(
             to_unit(
                 Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfTowardsZero)
+            ), //
+            10.5
+        );
+
+        assert_eq!(
+            to_unit(
+                Dinero::new(1050, USD, None),
                 Some(1),
                 Some(RoundingMode::HalfTowardsZero)
             ), //
@@ -227,6 +279,15 @@ mod tests {
                 Some(RoundingMode::HalfAwayFromZero)
             ), //
             10.6
+        );
+
+        assert_eq!(
+            to_unit(
+                Dinero::new(1050, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfAwayFromZero)
+            ), //
+            10.5
         );
     }
 }
