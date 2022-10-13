@@ -64,16 +64,19 @@ pub fn to_unit(d: Dinero, digits: Option<isize>, round: Option<RoundingMode>) ->
             if is_even(rounded) {
                 rounded
             } else {
+                // TODO : I'm not sure this logic branch is ever run ?
                 rounded - 1.0
             }
         }
         Some(RoundingMode::HalfOdd) => {
             let rounded = value.round();
+
             if !is_half(value) {
                 rounded
             } else if is_even(rounded) {
                 rounded - 1.0
             } else {
+                // TODO : I'm not sure this logic branch is ever run ?
                 rounded
             }
         }
@@ -214,6 +217,30 @@ mod tests {
     }
 
     #[test]
+    fn test_to_unit_round_half_even_2() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1056, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfEven)
+            ), //
+            106.0
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_even_zero() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(0, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfEven)
+            ), //
+            0.0
+        );
+    }
+
+    #[test]
     fn test_to_unit_round_half_odd() {
         assert_eq!(
             to_unit(
@@ -253,6 +280,24 @@ mod tests {
     fn test_to_unit_round_half_towards_zero() {
         assert_eq!(
             to_unit(
+                Dinero::new(0, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfTowardsZero)
+            ), //
+            0.0
+        );
+
+        assert_eq!(
+            to_unit(
+                Dinero::new(-1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfTowardsZero)
+            ), //
+            -10.5
+        );
+
+        assert_eq!(
+            to_unit(
                 Dinero::new(1055, USD, None),
                 Some(1),
                 Some(RoundingMode::HalfTowardsZero)
@@ -274,11 +319,11 @@ mod tests {
     fn test_to_unit_round_half_away_zero() {
         assert_eq!(
             to_unit(
-                Dinero::new(1055, USD, None),
-                Some(1),
+                Dinero::new(15, USD, Some(1)),
+                None,
                 Some(RoundingMode::HalfAwayFromZero)
             ), //
-            10.6
+            1.5
         );
 
         assert_eq!(
