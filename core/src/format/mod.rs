@@ -107,6 +107,17 @@ mod tests {
     use pretty_assertions::assert_eq;
 
     #[test]
+    fn test_sign() {
+        assert_eq!(sign(0.0), 0.0);
+        assert_eq!(sign(-0.0), 0.0);
+        assert_eq!(sign(1.0), 1.0);
+        assert_eq!(sign(-1.0), -1.0);
+
+        assert_eq!(sign(42.0), 1.0);
+        assert_eq!(sign(-42.0), -1.0);
+    }
+
+    #[test]
     fn test_to_unit() {
         assert_eq!(
             to_unit(Dinero::new(1050, USD, None), None, None), //
@@ -345,6 +356,15 @@ mod tests {
                 Some(RoundingMode::HalfAwayFromZero)
             ), //
             1.5
+        );
+
+        assert_eq!(
+            to_unit(
+                Dinero::new(0, USD, Some(1)),
+                None,
+                Some(RoundingMode::HalfAwayFromZero)
+            ), //
+            0.0
         );
 
         assert_eq!(
