@@ -64,19 +64,16 @@ pub fn to_unit(d: Dinero, digits: Option<isize>, round: Option<RoundingMode>) ->
             if is_even(rounded) {
                 rounded
             } else {
-                // TODO : I'm not sure this logic branch is ever run ?
                 rounded - 1.0
             }
         }
         Some(RoundingMode::HalfOdd) => {
             let rounded = value.round();
-
             if !is_half(value) {
                 rounded
             } else if is_even(rounded) {
                 rounded - 1.0
             } else {
-                // TODO : I'm not sure this logic branch is ever run ?
                 rounded
             }
         }
@@ -277,6 +274,30 @@ mod tests {
     }
 
     #[test]
+    fn test_to_unit_round_half_odd_4() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(5, USD, Some(4)),
+                Some(3),
+                Some(RoundingMode::HalfOdd)
+            ), //
+            0.001
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_even_4() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(5, USD, Some(4)),
+                Some(3),
+                Some(RoundingMode::HalfEven)
+            ), //
+            0.0
+        );
+    }
+
+    #[test]
     fn test_to_unit_round_half_towards_zero() {
         assert_eq!(
             to_unit(
@@ -333,6 +354,15 @@ mod tests {
                 Some(RoundingMode::HalfAwayFromZero)
             ), //
             10.5
+        );
+
+        assert_eq!(
+            to_unit(
+                Dinero::new(5, USD, Some(4)),
+                Some(3),
+                Some(RoundingMode::HalfAwayFromZero)
+            ), //
+            0.001
         );
     }
 }
