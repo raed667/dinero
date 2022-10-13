@@ -1680,3 +1680,23 @@ pub fn custom(base: isize, exponent: isize) -> Currency {
         exponent,
     }
 }
+
+#[cfg(test)]
+#[cfg(not(tarpaulin_include))]
+mod tests {
+
+    use super::*;
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn test_custom_currency() {
+        assert_eq!(
+            custom(10, 2),
+            Currency {
+                code: CountryCode::Custom,
+                base: 10,
+                exponent: 2
+            }
+        )
+    }
+}

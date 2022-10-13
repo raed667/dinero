@@ -42,11 +42,7 @@ pub fn to_unit(d: Dinero, digits: Option<isize>, round: Option<RoundingMode>) ->
 
     let amount = d.amount as f64;
 
-    // Todo round
     let value = ((amount / to_unit_factor) as f64) * factor;
-
-    println!("Value {}", value);
-    println!("Value floor {}", value.floor());
 
     let rounded = match round {
         Some(RoundingMode::Identity) => value,
@@ -63,25 +59,22 @@ pub fn to_unit(d: Dinero, digits: Option<isize>, round: Option<RoundingMode>) ->
         Some(RoundingMode::HalfEven) => {
             let rounded = value.round();
             if !is_half(value) {
+                return rounded;
+            }
+            if is_even(rounded) {
                 rounded
             } else {
-                if is_even(rounded) {
-                    rounded
-                } else {
-                    rounded - 1.0
-                }
+                rounded - 1.0
             }
         }
         Some(RoundingMode::HalfOdd) => {
             let rounded = value.round();
             if !is_half(value) {
                 rounded
+            } else if is_even(rounded) {
+                rounded - 1.0
             } else {
-                if is_even(rounded) {
-                    rounded - 1.0
-                } else {
-                    rounded
-                }
+                rounded
             }
         }
         Some(RoundingMode::HalfTowardsZero) => {
@@ -101,7 +94,7 @@ pub fn to_unit(d: Dinero, digits: Option<isize>, round: Option<RoundingMode>) ->
         None => value,
     };
 
-    return rounded / factor;
+    rounded / factor
 }
 
 #[cfg(test)]
@@ -130,6 +123,18 @@ mod tests {
     }
 
     #[test]
+    fn test_to_unit_round_identity() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::Identity)
+            ), //
+            10.55
+        );
+    }
+
+    #[test]
     fn test_to_unit_round_down() {
         assert_eq!(
             to_unit(
@@ -138,6 +143,90 @@ mod tests {
                 Some(RoundingMode::Down)
             ), //
             10.5
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_up() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::Up)
+            ), //
+            10.6
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_down() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfDown)
+            ), //
+            10.5
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_up() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfUp)
+            ), //
+            10.6
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_even() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfEven)
+            ), //
+            10.6
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_odd() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfOdd)
+            ), //
+            10.5
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_towards_zero() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfTowardsZero)
+            ), //
+            10.5
+        );
+    }
+
+    #[test]
+    fn test_to_unit_round_half_away_zero() {
+        assert_eq!(
+            to_unit(
+                Dinero::new(1055, USD, None),
+                Some(1),
+                Some(RoundingMode::HalfAwayFromZero)
+            ), //
+            10.6
         );
     }
 }
