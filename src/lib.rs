@@ -8,10 +8,7 @@
 //!
 use std::cmp::Ordering;
 
-use api::{
-    have_same_amount::have_same_amount, have_same_currency::have_same_currency,
-    normalize_scale_tuple::normalize_scale_tuple,
-};
+use api::{have_same_amount, have_same_currency, normalize_scale_tuple};
 
 use crate::currencies::Currency;
 
