@@ -41,7 +41,7 @@ $ cargo add dinero
 `Dinero` objects are minimal. The API is heavily inspired by `dinero.js` unless there is a more suitable Rust way to implement things. 
 
 ```rust
-use dinero::{api::add::add, currencies::USD, Dinero};
+use dinero::{api::add, currencies::USD, Dinero};
 
 fn main() {
     let d1 = Dinero::new(500, USD, None);
