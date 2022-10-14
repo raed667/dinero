@@ -38,7 +38,7 @@ $ cargo add dinero
 
 ## ⚡️ Quick start
 
-`Dinero` objects are minimal. Every function in `dinero.js` is side-effect free, allowing you only to bundle exactly what you use.
+`Dinero` objects are minimal. The API is heavily inspired by `dinero.js` unless there is a more suitable Rust way to implement things. 
 
 ```rust
 use dinero::{api::add::add, currencies::USD, Dinero};
