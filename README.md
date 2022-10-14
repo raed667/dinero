@@ -16,7 +16,7 @@
   <!-- codecov -->
   <a href="https://codecov.io/gh/raed667/dinero"><img src="https://codecov.io/gh/raed667/dinero/branch/main/graph/badge.svg?token=6IH3LQRXNH"/></a>
   <!-- Docs -->
-  <a href="https://docs.rs/rand"><img src="https://docs.rs/dinero/badge.svg"/></a>
+  <a href="https://docs.rs/dinero"><img src="https://docs.rs/dinero/badge.svg"/></a>
   <!-- license -->
   <a href="https://crates.io/crates/dinero"><img alt="Crates.io" src="https://img.shields.io/crates/l/dinero"></a>
 </p>
@@ -51,12 +51,12 @@ fn main() {
 }
 ```
 
-## ✌️ Disclaimer
+## 🦀 Disclaimer
 
-I'm using this project to learn about Rust. And I'm working my way through the language and the ecosystem. Consider the current version of the project **unstable**.
+I'm using this project to learn about Rust. And I'm working my way through the language and the ecosystem.
+
+Consider the current version of Dinero **unstable**. There will _definitely_ be breaking changes.
 
 ## 📜 License
 
 [MIT](LICENSE)
-
----
