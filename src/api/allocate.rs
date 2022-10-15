@@ -2,7 +2,7 @@ use std::error::Error;
 
 use crate::{messages::INVALID_INPUT, Dinero};
 
-fn compare(remainder: isize, is_positive: bool) -> bool {
+fn compare(remainder: i128, is_positive: bool) -> bool {
     if is_positive {
         remainder > 0
     } else {
@@ -10,16 +10,16 @@ fn compare(remainder: isize, is_positive: bool) -> bool {
     }
 }
 
-fn distribute(value: isize, ratios: Vec<isize>) -> Vec<isize> {
-    let total: isize = ratios.iter().sum();
+fn distribute(value: i128, ratios: Vec<i128>) -> Vec<i128> {
+    let total: i128 = ratios.iter().sum();
     if total == 0 {
         ratios
     } else {
         let mut remainder = value;
 
-        let mut shares: Vec<isize> = ratios
+        let mut shares: Vec<i128> = ratios
             .iter()
-            .map(|ratio| -> isize {
+            .map(|ratio| -> i128 {
                 let share = (value * ratio) / total;
                 remainder -= share;
                 share
@@ -44,7 +44,7 @@ fn distribute(value: isize, ratios: Vec<isize>) -> Vec<isize> {
 /// Distribute the amount of a Dinero object across a list of ratios.
 ///
 /// Monetary values have indivisible units, meaning you can't always exactly split them. With allocate, you can split a monetary amount then distribute the remainder as evenly as possible.
-pub fn allocate(item: &Dinero, ratios: Vec<isize>) -> Result<Vec<Dinero>, Box<dyn Error>> {
+pub fn allocate(item: &Dinero, ratios: Vec<i128>) -> Result<Vec<Dinero>, Box<dyn Error>> {
     if ratios.is_empty() {
         Err(INVALID_INPUT.to_owned())?
     } else {

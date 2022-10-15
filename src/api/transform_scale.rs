@@ -3,22 +3,20 @@ use crate::Dinero;
 /// Transform a Dinero to a new scale.
 ///
 /// Transforming to a higher scale means that the internal amount value increases by orders of magnitude. Be careful not to exceed the minimum and maximum safe integers.
-pub fn transform_scale(item: &Dinero, new_scale: isize) -> Dinero {
+pub fn transform_scale(item: &Dinero, new_scale: u32) -> Dinero {
     let scale = item.scale;
     let amount = item.amount;
     let currency = item.currency;
 
     let is_new_scale_larger = new_scale > scale;
-    let new_amount: isize;
-    let factor: isize;
+    let new_amount: i128;
+    let factor: i128;
 
     if is_new_scale_larger {
-        let pow = (new_scale - scale) as u32;
-        factor = currency.base.pow(pow);
+        factor = i128::from(currency.base.pow(new_scale - scale));
         new_amount = amount * factor;
     } else {
-        let pow = (scale - new_scale) as u32;
-        factor = currency.base.pow(pow);
+        factor = i128::from(currency.base.pow(scale - new_scale));
         new_amount = amount / factor;
     }
 

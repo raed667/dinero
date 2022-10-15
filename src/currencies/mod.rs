@@ -1,8 +1,8 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 pub struct Currency {
     pub code: CountryCode,
-    pub base: isize,
-    pub exponent: isize,
+    pub base: u32,
+    pub exponent: u32,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
@@ -1673,7 +1673,7 @@ pub const ZWL: Currency = Currency {
 /**
  * Custom user-defined currency factory
  */
-pub fn custom(base: isize, exponent: isize) -> Currency {
+pub fn custom(base: u32, exponent: u32) -> Currency {
     Currency {
         code: CountryCode::Custom,
         base,

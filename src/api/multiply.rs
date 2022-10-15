@@ -5,7 +5,7 @@ use super::normalize_scale_tuple::normalize_scale_tuple;
 /// Multiply a Dinero
 ///
 /// If you need to multiply by a fractional multiplier, you shouldn't use floats, but scaled amounts instead. For example, instead of passing `2.1`, you should pass `{ amount: 21, scale: 1 }`. When using scaled amounts, the function converts the returned objects to the safest scale.
-pub fn multiply(a: &Dinero, amount: isize, scale: Option<isize>) -> Dinero {
+pub fn multiply(a: &Dinero, amount: i128, scale: Option<u32>) -> Dinero {
     let b = Dinero {
         currency: a.currency,
         amount: 1,
