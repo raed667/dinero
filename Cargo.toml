@@ -1,16 +1,15 @@
 [package]
 name = "dinero"
+authors = ["Raed667"]
+version = "0.0.3"
+edition = "2021"
+license = "MIT"
 description = """
 Dinero lets you express monetary values. You can perform mutations, conversions, comparisons, format them extensively, and overall make money manipulation in your application easier and safer.
 """
-authors = ["Raed667"]
-version = "0.0.2"
-edition = "2021"
-license = "MIT"
 repository = "https://github.com/raed667/dinero"
 documentation = "https://docs.rs/dinero"
 homepage = "https://github.com/raed667/dinero"
-
 keywords = ["money", "dinero"]
 include = ["src/", "LICENSE-*", "README.md"]
 
