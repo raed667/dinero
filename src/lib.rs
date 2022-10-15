@@ -6,6 +6,27 @@
 //!
 //! You can perform mutations, conversions, comparisons, format them extensively, and overall make money manipulation in your application easier and safer.
 //!
+//! ## Getting started
+//! You can create Dinero objects with the associated function `Dinero::new()`
+//!
+//! ```rust
+//!use dinero::{api::add, currencies::USD, format::to_unit, Dinero};
+//!
+//!fn main() {
+//!     // Create a Dinero object of value 8.5 USD (the default scale for USD is 2)
+//!    let d1 = Dinero::new(850, USD, None);
+//!     // Create a Dinero object of value 5 USD with a custom scale 3
+//!    let d2 = Dinero::new(5000, USD, Some(3));
+//!
+//!    // Add the 2 Dineros, the value is stored in the result Dinero without modifying d1 and d2
+//!    let result = add(&d1, &d2);
+//!
+//!    match result {
+//!        Ok(value) => println!("{} USD", to_unit(value, None, None)), // 13.5 USD
+//!        Err(_) => println!("Error adding d1+d2"),
+//!    };
+//!}
+//!```
 use std::cmp::Ordering;
 
 use api::{have_same_amount, have_same_currency, normalize_scale_tuple};
@@ -19,7 +40,8 @@ pub mod messages;
 
 #[derive(Debug, Clone, Copy, Eq)]
 pub struct Dinero {
-    pub amount: isize, // Make more generic
+    pub amount: isize,
+    // Make more generic
     pub currency: Currency,
     pub scale: isize,
 }
