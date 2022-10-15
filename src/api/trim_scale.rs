@@ -18,14 +18,7 @@ fn count_trailing_zeros(input: isize, base: isize) -> isize {
     }
 }
 
-/// trim scale
-///
 /// Trim a Dinero's scale as much as possible, down to the currency exponent.
-///
-/// Example
-/// ```rust
-/// trim_scale(&Dinero::new(99950, USD, Some(4)));
-/// ```
 pub fn trim_scale(item: &Dinero) -> Dinero {
     let base = item.currency.base;
     let exponent = item.currency.exponent;

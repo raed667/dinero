@@ -1,11 +1,6 @@
 use crate::Dinero;
 
 /// Check whether a Dinero has minor currency units.
-///
-/// Example
-/// ```rust
-/// has_sub_units(&Dinero::new(1150, USD, None));
-/// ```
 pub fn has_sub_units(d: &Dinero) -> bool {
     d.amount % d.currency.base.pow(d.scale.try_into().unwrap()) != 0
 }

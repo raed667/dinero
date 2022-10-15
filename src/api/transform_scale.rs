@@ -3,11 +3,6 @@ use crate::Dinero;
 /// Transform a Dinero to a new scale.
 ///
 /// Transforming to a higher scale means that the internal amount value increases by orders of magnitude. Be careful not to exceed the minimum and maximum safe integers.
-///
-/// Example
-/// ```rust
-/// transform_scale(&Dinero::new(500, EUR, Some(2)), 4);
-/// ```
 pub fn transform_scale(item: &Dinero, new_scale: isize) -> Dinero {
     let scale = item.scale;
     let amount = item.amount;

@@ -1,22 +1,16 @@
 use crate::Dinero;
 
-/// Equal
-///
 /// Check whether the value of a Dinero object is equal to another.
 ///
 /// This function does same-value equality, determining whether two Dinero objects are functionally equivalent. It also normalizes objects to the same scale (the highest) before comparing them.
 ///
-/// Example
-/// ```rust
-/// let result = equal(&Dinero::new(10, EUR, None), &Dinero::new(10, EUR, None));
-///
-/// ```
 /// The `Dinero` struct implements `PartialEq` trait. You can directly use the equality comparison:
 ///
 /// ```rust
+/// use dinero::{currencies::EUR, Dinero};
+///
 /// let result = Dinero::new(10, EUR, None) == Dinero::new(10, EUR, None);
 /// ```
-///
 pub fn equal(a: &Dinero, b: &Dinero) -> bool {
     a == b
 }

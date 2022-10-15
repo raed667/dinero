@@ -1,11 +1,6 @@
 use crate::Dinero;
 
 /// Check whether the value of a Dinero is zero.
-///
-/// Example
-/// ```rust
-/// is_zero(&Dinero::new(0, EUR, None));
-/// ```
 pub fn is_zero(d: &Dinero) -> bool {
     d.amount == 0
 }

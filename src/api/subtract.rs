@@ -6,11 +6,6 @@ use super::normalize_scale_tuple::normalize_scale_tuple;
 /// Subtract two Dineros
 ///
 /// **You can only subtract objects that share the same currency.** The function also normalizes objects to the same scale (the highest) before subtracting them.
-///
-/// Example
-/// ```rust
-/// subtract(&Dinero::new(100, EUR, None), &Dinero::new(200, EUR, None));
-/// ```
 pub fn subtract(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
     if a.currency.code != b.currency.code {
         Err(UNEQUAL_CURRENCIES_MESSAGE.to_owned())?

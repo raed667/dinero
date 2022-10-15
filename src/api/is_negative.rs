@@ -1,11 +1,6 @@
 use crate::Dinero;
 
 /// Check whether a Dinero object is negative.
-///
-/// Example
-/// ```rust
-/// is_negative(&Dinero::new(10, EUR, None));
-/// ```
 pub fn is_negative(d: &Dinero) -> bool {
     d.amount < 0
 }

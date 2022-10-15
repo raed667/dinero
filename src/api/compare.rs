@@ -2,14 +2,7 @@ use std::cmp::Ordering;
 
 use crate::Dinero;
 
-/// compare
-///
 /// Compare the value of a Dinero object relative to another. This is useful for sorting Dinero objects.
-///
-/// Example
-/// ```rust
-/// compare(&Dinero::new(500, EUR, None), &Dinero::new(800, EUR, None));
-/// ```
 pub fn compare(a: &Dinero, b: &Dinero) -> Ordering {
     a.cmp(b)
 }

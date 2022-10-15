@@ -45,11 +45,6 @@ fn sign(value: f64) -> f64 {
 ///
 /// For convenience, Dinero provides the following rounding functions: up, down, halfUp, halfDown, halfOdd, halfEven (bankers rounding), halfTowardsZero, and halfAwayFromZero.
 ///
-/// ## Example
-/// ```rust
-/// let dinero = to_unit(Dinero::new(1050, EUR, None), None,RoundingMode::Down);
-/// println!("{}", dinero); // 10.5
-/// ```
 pub fn to_unit(d: Dinero, digits: Option<isize>, round: Option<RoundingMode>) -> f64 {
     let to_unit_factor = d.currency.base.pow(d.scale.try_into().unwrap()) as f64;
 

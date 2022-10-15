@@ -41,16 +41,9 @@ fn distribute(value: isize, ratios: Vec<isize>) -> Vec<isize> {
     }
 }
 
-/// Allocate
-///
 /// Distribute the amount of a Dinero object across a list of ratios.
 ///
 /// Monetary values have indivisible units, meaning you can't always exactly split them. With allocate, you can split a monetary amount then distribute the remainder as evenly as possible.
-///
-/// Example
-/// ```rust
-/// allocate(&Dinero::new(42, USD, None), vec![50, 50]);
-/// ```
 pub fn allocate(item: &Dinero, ratios: Vec<isize>) -> Result<Vec<Dinero>, Box<dyn Error>> {
     if ratios.is_empty() {
         Err(INVALID_INPUT.to_owned())?

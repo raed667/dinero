@@ -1,11 +1,6 @@
 use crate::Dinero;
 
 /// Check whether a Dinero object is positive.
-///
-/// Example
-/// ```rust
-/// is_positive(&Dinero::new(10, EUR, None));
-/// ```
 pub fn is_positive(d: &Dinero) -> bool {
     d.amount >= 0
 }
