@@ -3,15 +3,6 @@ use crate::Dinero;
 use super::normalize_scale::normalize_scale;
 
 /// Check whether a set of Dineros have the same amount.
-///
-/// Example
-/// ```rust
-/// have_same_amount(&vec![
-///     Dinero::new(5, EUR, Some(2)),
-///     Dinero::new(5, USD, Some(2)),
-///     Dinero::new(5, TND, Some(2))
-/// ]);
-/// ```
 pub fn have_same_amount(dinero_objects: &[Dinero]) -> bool {
     if dinero_objects.is_empty() {
         return true;

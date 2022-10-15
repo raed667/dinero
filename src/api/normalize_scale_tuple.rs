@@ -7,14 +7,6 @@ use super::transform_scale::transform_scale;
 /// Normalize two Dinero objects to the highest scale.
 ///
 /// Normalizing to a higher scale means that the internal amount value increases by orders of magnitude. **Be careful not to exceed the minimum and maximum safe integers.**
-///
-/// Example
-/// ```rust
-/// normalize_scale_tuple(
-///     Dinero::new(20, USD, Some(2)),
-///     Dinero::new(30, EUR, Some(3))
-/// );
-/// ```
 pub fn normalize_scale_tuple(a: Dinero, b: Dinero) -> (Dinero, Dinero) {
     if a.scale == b.scale {
         return (a.to_owned(), b.to_owned());

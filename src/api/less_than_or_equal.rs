@@ -1,22 +1,16 @@
 use crate::Dinero;
 
-/// less than or equals
-///
 /// Check whether the value of a Dinero object is less or equals another.
 ///
 /// **You can only compare objects that share the same currency.** The function also normalizes objects to the same scale (the highest) before comparing them.
 ///
-/// Example
-/// ```rust
-/// let result = less_than_or_equal(&Dinero::new(20, EUR, None), &Dinero::new(10, EUR, None));
-///
-/// ```
 /// The `Dinero` struct implements `Ord` trait. You can directly comparison operators:
 ///
 /// ```rust
+/// use dinero::{currencies::EUR, Dinero};
+///
 /// let result = Dinero::new(20, EUR, None) <= Dinero::new(10, EUR, None);
 /// ```
-///
 pub fn less_than_or_equal(a: &Dinero, b: &Dinero) -> bool {
     a <= b
 }

@@ -6,11 +6,6 @@ use super::normalize_scale_tuple::normalize_scale_tuple;
 /// Add up two Dineros.
 ///
 /// **You can only add Dineros that share the same currency.** The function also normalizes objects to the same scale (the highest) before adding them up.
-///
-/// Example
-/// ```rust
-/// add(&Dinero::new(100, EUR, None), &Dinero::new(200, EUR, None));
-/// ```
 pub fn add(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
     if a.currency.code != b.currency.code {
         Err(UNEQUAL_CURRENCIES_MESSAGE.to_owned())?

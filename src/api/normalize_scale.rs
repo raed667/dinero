@@ -2,20 +2,9 @@ use crate::Dinero;
 
 use super::transform_scale::transform_scale;
 
-/// normalize scale
-///
 /// Normalize a vector of Dineros to the highest scale.
 ///
 /// Normalizing to a higher scale means that the internal amount value increases by orders of magnitude. **Be careful not to exceed the minimum and maximum safe integers.**
-///
-/// Example
-/// ```rust
-/// normalize_scale(vec![
-///     Dinero::new(10, EUR, Some(2)),
-///     Dinero::new(20000, USD, Some(5)),
-///     Dinero::new(30, EUR, Some(3)),
-/// ]);
-/// ```
 pub fn normalize_scale(dinero_objects: Vec<Dinero>) -> Vec<Dinero> {
     let highest_scale = dinero_objects
         .iter()
