@@ -2,7 +2,8 @@ use crate::Dinero;
 
 /// Check whether a Dinero has minor currency units.
 pub fn has_sub_units(d: &Dinero) -> bool {
-    d.amount % d.currency.base.pow(d.scale.try_into().unwrap()) != 0
+    let base = i128::from(d.currency.base);
+    d.amount % base.pow(d.scale) != 0
 }
 
 #[cfg(test)]

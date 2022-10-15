@@ -39,15 +39,14 @@ pub mod messages;
 
 #[derive(Debug, Clone, Copy, Eq)]
 pub struct Dinero {
-    pub amount: isize,
-    // Make more generic
+    pub amount: i128, // Make more generic
     pub currency: Currency,
-    pub scale: isize,
+    pub scale: u32,
 }
 
 #[cfg(not(tarpaulin_include))]
 impl Dinero {
-    pub fn new(amount: isize, currency: Currency, scale: Option<isize>) -> Dinero {
+    pub fn new(amount: i128, currency: Currency, scale: Option<u32>) -> Dinero {
         Dinero {
             scale: scale.unwrap_or_else(|| currency.exponent.to_owned()),
             amount,

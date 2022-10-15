@@ -2,12 +2,13 @@ use crate::Dinero;
 
 use super::transform_scale::transform_scale;
 
-fn count_trailing_zeros(input: isize, base: isize) -> isize {
+fn count_trailing_zeros(input: i128, base: u32) -> u32 {
     if input == 0 {
         0
     } else {
         let mut count = 0;
         let mut temp = input;
+        let base = i128::from(base);
 
         while temp % base == 0 {
             temp /= base;
