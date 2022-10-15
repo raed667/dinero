@@ -17,4 +17,3 @@ include = ["src/", "LICENSE-*", "README.md"]
 
 [dev-dependencies]
 pretty_assertions = "1"
-insta = { version = "1.17.1", features = ["backtrace", "redactions"] }
