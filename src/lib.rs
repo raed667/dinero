@@ -26,7 +26,7 @@
 
 //!}
 //!```
-use std::cmp::Ordering;
+use std::{cmp::Ordering, ops::Add, ops::Sub};
 
 use api::{have_same_amount, have_same_currency, normalize_scale_tuple};
 
@@ -81,6 +81,34 @@ impl Ord for Dinero {
         let (an, bn) = normalize_scale_tuple(a, b);
 
         an.amount.cmp(&bn.amount)
+    }
+}
+
+impl Add for Dinero {
+    type Output = Dinero;
+
+    fn add(self, other: Self) -> Self::Output {
+        let (an, bn) = normalize_scale_tuple(self, other);
+
+        Dinero {
+            currency: an.currency,
+            scale: an.scale,
+            amount: an.amount + bn.amount,
+        }
+    }
+}
+
+impl Sub for Dinero {
+    type Output = Dinero;
+
+    fn sub(self, other: Self) -> Self::Output {
+        let (an, bn) = normalize_scale_tuple(self, other);
+
+        Dinero {
+            currency: an.currency,
+            scale: an.scale,
+            amount: an.amount - bn.amount,
+        }
     }
 }
 
