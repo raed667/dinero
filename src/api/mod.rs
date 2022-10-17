@@ -1,6 +1,7 @@
 mod add;
 mod allocate;
 mod compare;
+mod convert;
 mod equal;
 mod greater_than;
 mod greater_than_or_equal;
@@ -24,6 +25,7 @@ mod trim_scale;
 pub use self::add::add;
 pub use self::allocate::allocate;
 pub use self::compare::compare;
+pub use self::convert::convert;
 pub use self::equal::equal;
 pub use self::greater_than::greater_than;
 pub use self::greater_than_or_equal::greater_than_or_equal;
