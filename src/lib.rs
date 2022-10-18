@@ -20,6 +20,9 @@
 //!// Add the 2 Dineros, the value is stored in the result Dinero without modifying d1 and d2
 //!let result = add(&d1, &d2);
 //!
+//! // Or you can use the standard operators
+//! let result = d1 + d2;
+//!
 //!match result {
 //!   Ok(value) => println!("{} USD", to_unit(value, None, None)), // 13.5 USD
 //!   Err(_) => println!("Error adding d1+d2"),

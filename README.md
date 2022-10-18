@@ -38,16 +38,25 @@ $ cargo add dinero
 
 ## ⚡️ Quick start
 
-`Dinero` objects are minimal. The API is heavily inspired by `dinero.js` unless there is a more suitable Rust way to implement things. 
+`Dinero` objects are minimal. The API is heavily inspired by `dinero.js` unless there is a more suitable Rust way to implement things.
 
 ```rust
-use dinero::{api::add, currencies::USD, Dinero};
+use dinero::{api::add, currencies::USD, format::to_unit, Dinero};
 
-fn main() {
-    let d1 = Dinero::new(500, USD, None);
-    let d2 = Dinero::new(800, USD, None);
+// Create a Dinero object of value 8.5 USD (the default scale for USD is 2)
+let d1 = Dinero::new(850, USD, None);
+// Create a Dinero object of value 5 USD with a custom scale 3
+let d2 = Dinero::new(5000, USD, Some(3));
 
-    let result = add(&d1, &d2);
+// Add the 2 Dineros, the value is stored in the result Dinero without modifying d1 and d2
+let result = add(&d1, &d2); // Similar API as Dinero.js
+
+// Or you can use the standard operators
+let result = d1 + d2;
+
+match result {
+  Ok(value) => println!("{} USD", to_unit(value, None, None)), // 13.5 USD
+  Err(_) => println!("Error adding d1+d2"),
 }
 ```
 

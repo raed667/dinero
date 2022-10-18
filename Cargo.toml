@@ -11,7 +11,7 @@ repository = "https://github.com/raed667/dinero"
 documentation = "https://docs.rs/dinero"
 homepage = "https://github.com/raed667/dinero"
 keywords = ["money", "dinero"]
-include = ["src/", "LICENSE-*", "README.md"]
+include = ["src/", "LICENSE", "README.md"]
 
 [dependencies]
 
