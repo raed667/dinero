@@ -48,3 +48,9 @@ jobs:
         with:
           command: build
           args: --release --all-features
+      - name: Alex Recommends
+        uses: brown-ccv/alex-recommends@v1.2.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message_id: "alex"
+          pr_only: false
