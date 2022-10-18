@@ -15,6 +15,7 @@ pub enum DineroError {
 
 impl std::error::Error for DineroError {}
 
+#[cfg(not(tarpaulin_include))]
 impl fmt::Display for DineroError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
