@@ -26,7 +26,6 @@
 //!match result {
 //!   Ok(value) => println!("{} USD", to_unit(value, None, None)), // 13.5 USD
 //!   Err(_) => println!("Error adding d1+d2"),
-
 //!}
 //!```
 use std::{cmp::Ordering, ops::Add, ops::Sub};
@@ -87,6 +86,7 @@ impl Ord for Dinero {
     }
 }
 
+#[cfg(not(tarpaulin_include))]
 impl Add for Dinero {
     type Output = Dinero;
 
@@ -101,6 +101,7 @@ impl Add for Dinero {
     }
 }
 
+#[cfg(not(tarpaulin_include))]
 impl Sub for Dinero {
     type Output = Dinero;
 
