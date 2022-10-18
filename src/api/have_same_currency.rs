@@ -24,37 +24,31 @@ mod tests {
     #[test]
     fn test_have_same_currency() {
         assert_eq!(
-            have_same_currency(&vec![
-                Dinero::new(0, EUR, None),
+            have_same_currency(&[Dinero::new(0, EUR, None),
                 Dinero::new(-5, EUR, None),
-                Dinero::new(5, EUR, None)
-            ]),
+                Dinero::new(5, EUR, None)]),
             true
         );
 
         assert_eq!(
-            have_same_currency(&vec![
+            have_same_currency(&[Dinero::new(1, EUR, None),
                 Dinero::new(1, EUR, None),
-                Dinero::new(1, EUR, None),
-                Dinero::new(1, EUR, None)
-            ]),
+                Dinero::new(1, EUR, None)]),
             true
         );
 
-        assert_eq!(have_same_currency(&vec![Dinero::new(0, EUR, None),]), true);
+        assert_eq!(have_same_currency(&[Dinero::new(0, EUR, None)]), true);
 
         assert_eq!(
-            have_same_currency(&vec![
-                Dinero::new(1, EUR, None),
+            have_same_currency(&[Dinero::new(1, EUR, None),
                 Dinero::new(1, USD, None),
-                Dinero::new(1, EUR, None)
-            ]),
+                Dinero::new(1, EUR, None)]),
             false
         );
     }
 
     #[test]
     fn test_have_same_currency_empty() {
-        assert!(have_same_currency(&vec![]));
+        assert!(have_same_currency(&[]));
     }
 }

@@ -46,14 +46,14 @@ fn sign(value: f64) -> f64 {
 /// For convenience, Dinero provides the following rounding functions: up, down, halfUp, halfDown, halfOdd, halfEven (bankers rounding), halfTowardsZero, and halfAwayFromZero.
 ///
 pub fn to_unit(d: Dinero, digits: Option<u32>, round: Option<RoundingMode>) -> f64 {
-    let to_unit_factor = d.currency.base.pow(d.scale.try_into().unwrap()) as f64;
+    let to_unit_factor = d.currency.base.pow(d.scale) as f64;
 
     let digits_expo = match digits {
         Some(d) => d,
         None => d.scale,
     };
 
-    let factor = d.currency.base.pow(digits_expo.try_into().unwrap()) as f64;
+    let factor = d.currency.base.pow(digits_expo) as f64;
 
     let amount = d.amount as f64;
 
