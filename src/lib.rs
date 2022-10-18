@@ -34,8 +34,8 @@ use crate::currencies::Currency;
 
 pub mod api;
 pub mod currencies;
+pub mod error;
 pub mod format;
-pub mod messages;
 
 #[derive(Debug, Clone, Copy, Eq)]
 pub struct Dinero {

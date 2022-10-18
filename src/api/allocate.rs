@@ -1,6 +1,4 @@
-use std::error::Error;
-
-use crate::{messages::INVALID_INPUT, Dinero};
+use crate::{error::DineroError, Dinero};
 
 fn compare(remainder: i128, is_positive: bool) -> bool {
     if is_positive {
@@ -44,14 +42,14 @@ fn distribute(value: i128, ratios: Vec<i128>) -> Vec<i128> {
 /// Distribute the amount of a Dinero object across a list of ratios.
 ///
 /// Monetary values have indivisible units, meaning you can't always exactly split them. With allocate, you can split a monetary amount then distribute the remainder as evenly as possible.
-pub fn allocate(item: &Dinero, ratios: Vec<i128>) -> Result<Vec<Dinero>, Box<dyn Error>> {
+pub fn allocate(item: &Dinero, ratios: Vec<i128>) -> Result<Vec<Dinero>, DineroError> {
     if ratios.is_empty() {
-        Err(INVALID_INPUT.to_owned())?
+        Err(DineroError::EmptyRatiosError)?
     } else {
         let has_only_positive_ratios = ratios.iter().all(|ratio| *ratio >= 0);
 
         if !has_only_positive_ratios {
-            Err(INVALID_INPUT.to_owned())?
+            Err(DineroError::NegativeRatiosError)?
         } else {
             let shares = distribute(item.amount, ratios);
             let result: Vec<Dinero> = shares
@@ -77,7 +75,10 @@ mod tests {
         let result = allocate(&Dinero::new(42, USD, None), vec![]);
         assert!(result.is_err());
         match result {
-            Err(e) => assert_eq!(format!("{:?}", e), format!("{:?}", INVALID_INPUT)),
+            Err(e) => assert_eq!(
+                format!("{:?}", e),
+                format!("{:?}", DineroError::EmptyRatiosError)
+            ),
             _ => panic!("allocate should not return value for empty vector"),
         }
     }
@@ -87,7 +88,10 @@ mod tests {
         let result = allocate(&Dinero::new(42, USD, None), vec![1, -2, 3]);
         assert!(result.is_err());
         match result {
-            Err(e) => assert_eq!(format!("{:?}", e), format!("{:?}", INVALID_INPUT)),
+            Err(e) => assert_eq!(
+                format!("{:?}", e),
+                format!("{:?}", DineroError::NegativeRatiosError)
+            ),
             _ => panic!("allocate should not return value for negative vector values"),
         }
     }

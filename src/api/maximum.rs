@@ -1,14 +1,13 @@
-use crate::{messages::INVALID_INPUT, messages::UNEQUAL_CURRENCIES_MESSAGE, Dinero};
-use std::error::Error;
+use crate::{error::DineroError, Dinero};
 
 use super::normalize_scale::normalize_scale;
 
 /// Get the greatest of the passed Dinero vector.
 ///
 /// **You can only compare objects that share the same currency.** The function also normalizes objects to the same scale (the highest) before comparing them.
-pub fn maximum(dinero_objects: Vec<Dinero>) -> Result<Dinero, Box<dyn Error>> {
+pub fn maximum(dinero_objects: Vec<Dinero>) -> Result<Dinero, DineroError> {
     if dinero_objects.is_empty() {
-        Err(INVALID_INPUT.to_owned())?
+        Err(DineroError::EmptyDinerosError)?
     }
     let currency = dinero_objects.get(0).unwrap().currency;
     let have_same_currency = dinero_objects
@@ -16,7 +15,7 @@ pub fn maximum(dinero_objects: Vec<Dinero>) -> Result<Dinero, Box<dyn Error>> {
         .all(|d| d.currency.code == currency.code);
 
     if !have_same_currency {
-        Err(UNEQUAL_CURRENCIES_MESSAGE.to_owned())?
+        Err(DineroError::UnequalCurrencyError { a: None, b: None })?
     }
     let normalized = normalize_scale(dinero_objects);
 
@@ -80,7 +79,10 @@ mod tests {
         match result {
             Err(e) => assert_eq!(
                 format!("{:?}", e),
-                format!("{:?}", UNEQUAL_CURRENCIES_MESSAGE)
+                format!(
+                    "{:?}",
+                    DineroError::UnequalCurrencyError { a: None, b: None }
+                )
             ),
             _ => panic!("maximum should not return value for unequal currencies"),
         }
@@ -93,7 +95,10 @@ mod tests {
         assert!(result.is_err());
 
         match result {
-            Err(e) => assert_eq!(format!("{:?}", e), format!("{:?}", INVALID_INPUT)),
+            Err(e) => assert_eq!(
+                format!("{:?}", e),
+                format!("{:?}", DineroError::EmptyDinerosError)
+            ),
             _ => panic!("maximum should not return value for empty vec"),
         }
     }

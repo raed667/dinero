@@ -1,12 +1,14 @@
-use crate::{messages::UNEQUAL_CURRENCIES_MESSAGE, Dinero};
-use std::error::Error;
+use crate::{error::DineroError, Dinero};
 
 /// Add up two Dineros.
 ///
 /// **You can only add Dineros that share the same currency.** The function also normalizes objects to the same scale (the highest) before adding them up.
-pub fn add(a: &Dinero, b: &Dinero) -> Result<Dinero, Box<dyn Error>> {
+pub fn add(a: &Dinero, b: &Dinero) -> Result<Dinero, DineroError> {
     if a.currency.code != b.currency.code {
-        Err(UNEQUAL_CURRENCIES_MESSAGE.to_owned())?
+        Err(DineroError::UnequalCurrencyError {
+            a: Some(a.currency),
+            b: Some(b.currency),
+        })
     } else {
         Ok(*a + *b)
     }
@@ -59,14 +61,22 @@ mod tests {
 
     #[test]
     fn test_add_unequal_currency() {
-        let result = add(&Dinero::new(1, EUR, None), &Dinero::new(2, USD, None));
+        let a = Dinero::new(1, EUR, None);
+        let b = Dinero::new(2, USD, None);
+        let result = add(&a, &b);
 
         assert!(result.is_err());
 
         match result {
             Err(e) => assert_eq!(
                 format!("{:?}", e),
-                format!("{:?}", UNEQUAL_CURRENCIES_MESSAGE)
+                format!(
+                    "{:?}",
+                    DineroError::UnequalCurrencyError {
+                        a: Some(a.currency),
+                        b: Some(b.currency)
+                    }
+                )
             ),
             _ => panic!("add should not return value for unequal currencies"),
         }
