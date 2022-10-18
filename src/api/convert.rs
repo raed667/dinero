@@ -13,7 +13,7 @@ pub struct Rate {
 impl Rate {
     pub fn new(currency: Currency, amount: i128, scale: Option<u32>) -> Rate {
         Rate {
-            scale: scale.unwrap_or_else(|| 0),
+            scale: scale.unwrap_or(0),
             amount,
             currency,
         }
