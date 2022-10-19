@@ -52,7 +52,7 @@ let d2 = Dinero::new(5000, USD, Some(3));
 let result = add(&d1, &d2); // Similar API as Dinero.js
 
 // Or you can use the standard operators
-let result = d1 + d2;
+let result = d1 + d2; // WIP missing currency check
 
 match result {
   Ok(value) => println!("{} USD", to_unit(value, None, None)), // 13.5 USD
