@@ -21,7 +21,7 @@
 //!let result = add(&d1, &d2);
 //!
 //! // Or you can use the standard operators
-//! let result = d1 + d2;
+//! // let result = d1 + d2;
 //!
 //!match result {
 //!   Ok(value) => println!("{} USD", to_unit(value, None, None)), // 13.5 USD

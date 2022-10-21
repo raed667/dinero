@@ -26,6 +26,7 @@ pub use self::add::add;
 pub use self::allocate::allocate;
 pub use self::compare::compare;
 pub use self::convert::convert;
+pub use self::convert::Rate;
 pub use self::equal::equal;
 pub use self::greater_than::greater_than;
 pub use self::greater_than_or_equal::greater_than_or_equal;

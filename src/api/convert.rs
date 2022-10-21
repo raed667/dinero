@@ -4,6 +4,7 @@ use crate::Dinero;
 use super::transform_scale;
 
 // The conversion rate from a Dinero to another currency
+#[derive(Debug)]
 pub struct Rate {
     pub currency: Currency,
     pub amount: i128,
@@ -23,7 +24,7 @@ impl Rate {
 /// Convert a Dinero object from a currency to another.
 ///
 /// When using scaled amounts, the function converts the returned object to the safest scale.
-pub fn convert(item: &Dinero, rate: Rate) -> Dinero {
+pub fn convert(item: &Dinero, rate: &Rate) -> Dinero {
     if item.currency.eq(&rate.currency) {
         item.to_owned()
     } else if item.amount == 0 || rate.amount == 0 {
@@ -55,7 +56,7 @@ mod tests {
     #[test]
     fn test_convert_scale() {
         assert_eq!(
-            convert(&Dinero::new(500, USD, None), Rate::new(EUR, 89, Some(2))),
+            convert(&Dinero::new(500, USD, None), &Rate::new(EUR, 89, Some(2))),
             Dinero::new(44500, EUR, Some(4))
         );
     }
@@ -63,7 +64,7 @@ mod tests {
     #[test]
     fn test_convert_no_scale() {
         assert_eq!(
-            convert(&Dinero::new(500, USD, None), Rate::new(IQD, 1199, None)),
+            convert(&Dinero::new(500, USD, None), &Rate::new(IQD, 1199, None)),
             Dinero::new(5995000, IQD, Some(3))
         );
     }
@@ -71,7 +72,7 @@ mod tests {
     #[test]
     fn test_convert_same_currency() {
         assert_eq!(
-            convert(&Dinero::new(100, EUR, None), Rate::new(EUR, 300, None)),
+            convert(&Dinero::new(100, EUR, None), &Rate::new(EUR, 300, None)),
             Dinero::new(100, EUR, None)
         );
     }
@@ -79,7 +80,7 @@ mod tests {
     #[test]
     fn test_convert_value_zero() {
         assert_eq!(
-            convert(&Dinero::new(0, EUR, None), Rate::new(USD, 300, None)),
+            convert(&Dinero::new(0, EUR, None), &Rate::new(USD, 300, None)),
             Dinero::new(0, USD, None)
         );
     }
@@ -87,7 +88,7 @@ mod tests {
     #[test]
     fn test_convert_target_zero() {
         assert_eq!(
-            convert(&Dinero::new(110, EUR, None), Rate::new(USD, 0, None)),
+            convert(&Dinero::new(110, EUR, None), &Rate::new(USD, 0, None)),
             Dinero::new(0, USD, None)
         );
     }
