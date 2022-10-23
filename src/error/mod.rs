@@ -11,6 +11,7 @@ pub enum DineroError {
     EmptyDinerosError,
     EmptyRatiosError,
     NegativeRatiosError,
+    InvalidCurrency,
 }
 
 impl std::error::Error for DineroError {}
@@ -32,6 +33,7 @@ impl fmt::Display for DineroError {
             DineroError::NegativeRatiosError => {
                 write!(f, "Ratio vector can't have a negative value")
             }
+            DineroError::InvalidCurrency => write!(f, "Invalid currency"),
         }
     }
 }
