@@ -4,14 +4,7 @@ use crate::{error::DineroError, Dinero};
 ///
 /// **You can only add Dineros that share the same currency.** The function also normalizes objects to the same scale (the highest) before adding them up.
 pub fn add(a: &Dinero, b: &Dinero) -> Result<Dinero, DineroError> {
-    if a.currency.code != b.currency.code {
-        Err(DineroError::UnequalCurrencyError {
-            a: Some(a.currency),
-            b: Some(b.currency),
-        })
-    } else {
-        Ok(*a + *b)
-    }
+    *a + *b
 }
 
 #[cfg(test)]
