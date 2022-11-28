@@ -31,6 +31,7 @@
 use std::{cmp::Ordering, ops::Add, ops::Sub};
 
 use api::{have_same_amount, have_same_currency, normalize_scale_tuple};
+use error::DineroError;
 
 use crate::currencies::Currency;
 
@@ -88,15 +89,21 @@ impl Ord for Dinero {
 
 #[cfg(not(tarpaulin_include))]
 impl Add for Dinero {
-    type Output = Dinero;
+    type Output = Result<Dinero, DineroError>;
 
     fn add(self, other: Self) -> Self::Output {
-        let (an, bn) = normalize_scale_tuple(self, other);
-
-        Dinero {
-            currency: an.currency,
-            scale: an.scale,
-            amount: an.amount + bn.amount,
+        if self.currency.code != other.currency.code {
+            Err(DineroError::UnequalCurrencyError {
+                a: Some(self.currency),
+                b: Some(other.currency),
+            })
+        } else {
+            let (an, bn) = normalize_scale_tuple(self, other);
+            Ok(Dinero {
+                currency: an.currency,
+                scale: an.scale,
+                amount: an.amount + bn.amount,
+            })
         }
     }
 }
