@@ -49,8 +49,8 @@ jobs:
           command: build
           args: --release --all-features
       # Build
-      - name: Build WASM
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --target wasm32-unknown-unknown
+#      - name: Build WASM
+#        uses: actions-rs/cargo@v1
+#        with:
+#          command: build
+#          args: --release --target wasm32-unknown-unknown
